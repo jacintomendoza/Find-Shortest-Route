@@ -13,6 +13,9 @@ File contains: start state, goal state, and cost between (floating point)
 
 public class find_route {
 
+  public static ArrayList<String> inputFileArray = new ArrayList<String>();
+  public static HashMap<String, Float> heuristicMap = new HashMap<String, Float>();
+
   public static void main(String[] args)
   {
     String[] command_array;
@@ -21,7 +24,9 @@ public class find_route {
     String start_state;
     String goal_state;
     String heuristicFile;
-    float cost;
+    Float cost;
+
+
 
     // Example input: find_route inf input1.txt Munich Kassel h_kassel.txt
 
@@ -60,15 +65,56 @@ public class find_route {
 
     // HARDCODED
     inputFile = "input1.txt";
-    search = "uninf";
+    search = "inf";
     start_state = "Bremen";
     goal_state = "Kassel";
     heuristicFile = "h_kassel.txt";
 
-    // ReadFile(inputFile);
+    ReadInputFile(inputFile);
+
+    for (int i = 0; i < inputFileArray.size(); i++)
+    {
+      // System.out.println(inputFileArray.get(i));
+    }
+
+    if (search == "inf")
+    {
+      ReadHeuristicFile(heuristicFile);
+    }
+
+
+    for (int i = 0; i < heuristicMap.size(); i++)
+    {
+
+    }
+    System.out.println(heuristicMap);
   }
 
-  public static void ReadFile(String inputFile)
+  public static void ReadHeuristicFile(String heuristicFile)
+  {
+    try
+    {
+      File myObj = new File(heuristicFile);
+      Scanner myReader = new Scanner(myObj);
+      String input = myReader.nextLine();
+
+      while(!(input.equals("END OF INPUT")))
+      {
+        String[] split = input.split("\\s+");
+
+        heuristicMap.put(split[0], Float.valueOf(split[1]));
+
+        input = myReader.nextLine();
+      }
+    }
+    catch(Exception e)
+    {
+      System.out.println("File error, please check file.");
+      e.printStackTrace();
+    }
+  }
+
+  public static void ReadInputFile(String inputFile)
   {
     try
     {
@@ -79,9 +125,12 @@ public class find_route {
       while(!(inputLine.equals("END OF INPUT")))
       {
          //System.out.println(inputLine);
+         inputFileArray.add(inputLine);
          inputLine = br.readLine().toString();
+
         // line = br.readLine();
       }
+
       br.close();
     }
     catch(Exception e)
