@@ -42,13 +42,19 @@ class node implements Comparable<node>
 	@Override // needed to edit compare
 	public int compareTo(node node)
 	{
-		double compareCost = node.nodePathCost;
-		if(this.nodePathCost > compareCost)
+		double node_cost = node.nodePathCost;
+		if (this.nodePathCost > node_cost)
+    {
 			return 1;
-		else if(this.nodePathCost == compareCost)
+    }
+		else if (this.nodePathCost == node_cost)
+    {
 			return 0;
+    }
 		else
+    {
 			return -1;
+    }
 	}
 }
 
@@ -64,7 +70,10 @@ public class find_route
   public static int expanded = 0;
   public static int generated = 0;
 
-  static  int a[] = new int[10];
+
+
+
+
 
 	public static void main(String[] args)
 	{
@@ -72,29 +81,22 @@ public class find_route
     String search_type = "uninf";
     String start_state;
 		String goal_state;
-		String heuristicFile;
+		String heuristicFile = "h_kassel.txt";
 
     // Example input: find_route inf input1.txt Bremen Kassel h_kassel.txt
 
-    /*
+
     Scanner command_line = new Scanner(System.in);
     String command_current = command_line.next();
 
     // find_route
-    if (command_current != "find_route")
-    {
-      System.exit(0);
-    }
-    command_current = command_line.next();
-
-    // find_route
-    if (command_current != "find_route")
+    if (!command_current.equals("find_route"))
     {
       System.exit(0);
     }
     command_current = command_line.next();
     // inf
-    if (command_current == "inf")
+    if (command_current.equals("inf"))
     {
       search_type = command_current;
       command_current = command_line.next();
@@ -109,20 +111,22 @@ public class find_route
     goal_state = command_current;
     command_current = command_line.next();
     // heuristic
-    if (search_type == "inf")
+    if (search_type.equals("inf"))
     {
       heuristicFile = command_current;
     }
-    */
 
+
+    /*
     // HARDCODED
     inputFile = "input1.txt";
     //search_type = "inf";
     start_state = "Bremen";
     goal_state = "Kassel";
     heuristicFile = "h_kassel.txt";
+    */
+    // System.out.println("input commands: " + inputFile + " " + search_type + " " + start_state + " " + goal_state + " " + heuristicFile + "\n");
 
-    System.out.println("input commands: " + inputFile + " " + search_type + " " + start_state + " " + goal_state + " " + heuristicFile + "\n");
 
 		if(search_type.equals("inf"))
 		{
@@ -215,7 +219,7 @@ public class find_route
       {
         heuristicValue = heuristicMap.get(temp_parent.get_state());
       }
-      sucessor_node = new node(current_child[1], temp_parent, temp_parent.get_depth() + 1,temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
+      sucessor_node = new node(current_child[1], temp_parent, temp_parent.get_depth() + 1, temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
 
       priorityqueue.add(sucessor_node);
     }
@@ -231,16 +235,19 @@ public class find_route
 
   public static void UninformedSearch(String[] current_child, node temp_parent)
   {
+
     node sucessor_node;
     generated++;
+
     if(temp_parent.get_state().equals(current_child[0]))
     {
-      sucessor_node = new node(current_child[1], temp_parent, temp_parent.get_depth()+1, temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
+      sucessor_node = new node(current_child[1], temp_parent, temp_parent.get_depth() + 1, temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
       priorityqueue.add(sucessor_node);
     }
     else
     {
-    sucessor_node = new node(current_child[0], temp_parent, temp_parent.get_depth()+1, temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
+    sucessor_node = new node(current_child[0], temp_parent, temp_parent.get_depth() + 1, temp_parent.get_PathCost() + Double.valueOf(current_child[2]));
+
     priorityqueue.add(sucessor_node);
     }
   }
