@@ -77,15 +77,21 @@ public class find_route
 
 	public static void main(String[] args)
 	{
-    String inputFile;
+    String inputFile = args[0];
     String search_type = "uninf";
-    String start_state;
-		String goal_state;
-		String heuristicFile = "h_kassel.txt";
+    String start_state = args[1];
+		String goal_state = args[2];
+		String heuristicFile;
 
-    // Example input: find_route inf input1.txt Bremen Kassel h_kassel.txt
+		try{
+			heuristicFile = args[3];
+		}
+		finally
+		{
 
+    // Example input: java find_route input1.txt Bremen Kassel h_kassel.txt
 
+		/* U P D A T E D    T O   N O T    I N C L U D E
     Scanner command_line = new Scanner(System.in);
     String command_current = command_line.next();
 
@@ -115,7 +121,7 @@ public class find_route
     {
       heuristicFile = command_current;
     }
-
+		*/
 
     /*
     // HARDCODED
@@ -124,7 +130,7 @@ public class find_route
     start_state = "Bremen";
     goal_state = "Kassel";
     heuristicFile = "h_kassel.txt";
-    */
+
     // System.out.println("input commands: " + inputFile + " " + search_type + " " + start_state + " " + goal_state + " " + heuristicFile + "\n");
 
 
@@ -133,6 +139,7 @@ public class find_route
 			heuristicMap = new LinkedHashMap<String, Double>();
 			ReadHeuristicFile(heuristicFile);
 		}
+		*/
 
 		ReadInputFile(inputFile);
 
@@ -203,6 +210,7 @@ public class find_route
 			}
     }
     print();
+	}
   }
 
   public static void InformedSearch(String[] current_child, node temp_parent)
